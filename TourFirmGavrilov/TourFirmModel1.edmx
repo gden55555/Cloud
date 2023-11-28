@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DBTourFirmModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="citiesId" />
+          </Key>
+          <Property Name="citiesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="customersId" />
+          </Key>
+          <Property Name="customersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="30" />
+          <Property Name="phoneNumber" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Guides">
+          <Key>
+            <PropertyRef Name="guidesId" />
+          </Key>
+          <Property Name="guidesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullName" Type="nvarchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="30" />
+          <Property Name="phoneNumber" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customersId" Type="int" />
+          <Property Name="tourId" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="orderDate" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tours">
+          <Key>
+            <PropertyRef Name="tourId" />
+          </Key>
+          <Property Name="tourId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" />
+          <Property Name="guidesId" Type="int" />
+          <Property Name="citiesId" Type="int" />
+          <Property Name="price" Type="float" />
+          <Property Name="tourDate" Type="date" />
+          <Property Name="tourDuration" Type="int" />
+        </EntityType>
+        <Association Name="FK__Orders__customer__1BFD2C07">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customersId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="customersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__tourId__1CF15040">
+          <End Role="Tours" Type="Self.Tours" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tours">
+              <PropertyRef Name="tourId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="tourId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tours__citiesId__1920BF5C">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Tours" Type="Self.Tours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="citiesId" />
+            </Principal>
+            <Dependent Role="Tours">
+              <PropertyRef Name="citiesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tours__guidesId__182C9B23">
+          <End Role="Guides" Type="Self.Guides" Multiplicity="0..1" />
+          <End Role="Tours" Type="Self.Tours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guides">
+              <PropertyRef Name="guidesId" />
+            </Principal>
+            <Dependent Role="Tours">
+              <PropertyRef Name="guidesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DBTourFirmModelContainer">
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Guides" EntityType="Self.Guides" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Orders__customer__1BFD2C07" Association="Self.FK__Orders__customer__1BFD2C07">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__tourId__1CF15040" Association="Self.FK__Orders__tourId__1CF15040">
+            <End Role="Tours" EntitySet="Tours" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tours__citiesId__1920BF5C" Association="Self.FK__Tours__citiesId__1920BF5C">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Tours" EntitySet="Tours" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tours__guidesId__182C9B23" Association="Self.FK__Tours__guidesId__182C9B23">
+            <End Role="Guides" EntitySet="Guides" />
+            <End Role="Tours" EntitySet="Tours" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBTourFirmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="citiesId" />
+          </Key>
+          <Property Name="citiesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tours" Relationship="Self.FK__Tours__citiesId__1920BF5C" FromRole="Cities" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="customersId" />
+          </Key>
+          <Property Name="customersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="phoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__customer__1BFD2C07" FromRole="Customers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Guide">
+          <Key>
+            <PropertyRef Name="guidesId" />
+          </Key>
+          <Property Name="guidesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="phoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tours" Relationship="Self.FK__Tours__guidesId__182C9B23" FromRole="Guides" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customersId" Type="Int32" />
+          <Property Name="tourId" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="orderDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__customer__1BFD2C07" FromRole="Orders" ToRole="Customers" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK__Orders__tourId__1CF15040" FromRole="Orders" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="tourId" />
+          </Key>
+          <Property Name="tourId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="guidesId" Type="Int32" />
+          <Property Name="citiesId" Type="Int32" />
+          <Property Name="price" Type="Double" />
+          <Property Name="tourDate" Type="DateTime" Precision="0" />
+          <Property Name="tourDuration" Type="Int32" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Tours__citiesId__1920BF5C" FromRole="Tours" ToRole="Cities" />
+          <NavigationProperty Name="Guide" Relationship="Self.FK__Tours__guidesId__182C9B23" FromRole="Tours" ToRole="Guides" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__tourId__1CF15040" FromRole="Tours" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK__Tours__citiesId__1920BF5C">
+          <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Tours" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="citiesId" />
+            </Principal>
+            <Dependent Role="Tours">
+              <PropertyRef Name="citiesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__customer__1BFD2C07">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customersId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="customersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tours__guidesId__182C9B23">
+          <End Role="Guides" Type="Self.Guide" Multiplicity="0..1" />
+          <End Role="Tours" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guides">
+              <PropertyRef Name="guidesId" />
+            </Principal>
+            <Dependent Role="Tours">
+              <PropertyRef Name="guidesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__tourId__1CF15040">
+          <End Role="Tours" Type="Self.Tour" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tours">
+              <PropertyRef Name="tourId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="tourId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBTourFirmEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Guides" EntityType="Self.Guide" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tours" EntityType="Self.Tour" />
+          <AssociationSet Name="FK__Tours__citiesId__1920BF5C" Association="Self.FK__Tours__citiesId__1920BF5C">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Tours" EntitySet="Tours" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__customer__1BFD2C07" Association="Self.FK__Orders__customer__1BFD2C07">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tours__guidesId__182C9B23" Association="Self.FK__Tours__guidesId__182C9B23">
+            <End Role="Guides" EntitySet="Guides" />
+            <End Role="Tours" EntitySet="Tours" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__tourId__1CF15040" Association="Self.FK__Orders__tourId__1CF15040">
+            <End Role="Tours" EntitySet="Tours" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DBTourFirmModelContainer" CdmEntityContainer="DBTourFirmEntities">
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="DBTourFirmModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="citiesId" ColumnName="citiesId" />
+                <ScalarProperty Name="City1" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="DBTourFirmModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="customersId" ColumnName="customersId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Guides">
+            <EntityTypeMapping TypeName="DBTourFirmModel.Guide">
+              <MappingFragment StoreEntitySet="Guides">
+                <ScalarProperty Name="guidesId" ColumnName="guidesId" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DBTourFirmModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="customersId" ColumnName="customersId" />
+                <ScalarProperty Name="tourId" ColumnName="tourId" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBTourFirmModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tours">
+            <EntityTypeMapping TypeName="DBTourFirmModel.Tour">
+              <MappingFragment StoreEntitySet="Tours">
+                <ScalarProperty Name="tourId" ColumnName="tourId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="guidesId" ColumnName="guidesId" />
+                <ScalarProperty Name="citiesId" ColumnName="citiesId" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="tourDate" ColumnName="tourDate" />
+                <ScalarProperty Name="tourDuration" ColumnName="tourDuration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

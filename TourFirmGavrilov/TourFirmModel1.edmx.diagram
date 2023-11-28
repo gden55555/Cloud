@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6f380d5cb0dc4078881bf75c884681c0" Name="Diagram1">
+        <EntityTypeShape EntityType="DBTourFirmModel.City" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTourFirmModel.Customer" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTourFirmModel.Guide" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTourFirmModel.Order" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTourFirmModel.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTourFirmModel.Tour" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="DBTourFirmModel.FK__Tours__citiesId__1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTourFirmModel.FK__Orders__customer__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTourFirmModel.FK__Tours__guidesId__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTourFirmModel.FK__Orders__tourId__1CF15040" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
